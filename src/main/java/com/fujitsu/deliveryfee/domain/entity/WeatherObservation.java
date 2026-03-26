@@ -1,22 +1,42 @@
-package com.fujitsu.deliveryfee.dto;
+package com.fujitsu.deliveryfee.domain.entity;
 
-public class ParsedWeatherObservation {
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "weather_observation")
+public class WeatherObservation {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String stationName;
+
     private double airTemperature;
+
     private double windSpeed;
+
     private String weatherPhenomenon;
 
-    public ParsedWeatherObservation() {}
+    private LocalDateTime observationTime;
 
-    public ParsedWeatherObservation(String stationName,
-                                    double airTemperature,
-                                    double windSpeed,
-                                    String weatherPhenomenon) {
+    public WeatherObservation() {}
+
+    public WeatherObservation(String stationName,
+                              double airTemperature,
+                              double windSpeed,
+                              String weatherPhenomenon,
+                              LocalDateTime observationTime) {
         this.stationName = stationName;
         this.airTemperature = airTemperature;
         this.windSpeed = windSpeed;
         this.weatherPhenomenon = weatherPhenomenon;
+        this.observationTime = observationTime;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getStationName() {
@@ -49,5 +69,13 @@ public class ParsedWeatherObservation {
 
     public void setWeatherPhenomenon(String weatherPhenomenon) {
         this.weatherPhenomenon = weatherPhenomenon;
+    }
+
+    public LocalDateTime getObservationTime() {
+        return observationTime;
+    }
+
+    public void setObservationTime(LocalDateTime observationTime) {
+        this.observationTime = observationTime;
     }
 }

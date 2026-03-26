@@ -1,4 +1,4 @@
-package com.fujitsu.deliveryfee.model;
+package com.fujitsu.deliveryfee.domain.enums;
 
 public enum VehicleType {
     CAR,

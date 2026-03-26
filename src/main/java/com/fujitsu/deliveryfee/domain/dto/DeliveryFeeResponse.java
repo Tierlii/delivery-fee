@@ -1,4 +1,4 @@
-package com.fujitsu.deliveryfee.dto;
+package com.fujitsu.deliveryfee.domain.dto;
 
 public class DeliveryFeeResponse {
 

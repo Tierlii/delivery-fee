@@ -1,7 +1,7 @@
-package com.fujitsu.deliveryfee.dto;
+package com.fujitsu.deliveryfee.domain.dto;
 
-import com.fujitsu.deliveryfee.model.City;
-import com.fujitsu.deliveryfee.model.VehicleType;
+import com.fujitsu.deliveryfee.domain.enums.City;
+import com.fujitsu.deliveryfee.domain.enums.VehicleType;
 
 public class DeliveryFeeRequest {
 
