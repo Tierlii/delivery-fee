@@ -1,7 +1,14 @@
 package com.fujitsu.deliveryfee.domain.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+import com.fujitsu.deliveryfee.domain.enums.City;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "weather_observation")
@@ -20,6 +27,10 @@ public class WeatherObservation {
     private String weatherPhenomenon;
 
     private LocalDateTime observationTime;
+
+    private String wmoCode;
+
+    private City city;
 
     public WeatherObservation() {}
 
@@ -77,5 +88,21 @@ public class WeatherObservation {
 
     public void setObservationTime(LocalDateTime observationTime) {
         this.observationTime = observationTime;
+    }
+
+    public String getWmoCode() {
+        return wmoCode;
+    }
+
+    public void setWmoCode(String wmoCode) {
+        this.wmoCode = wmoCode;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }

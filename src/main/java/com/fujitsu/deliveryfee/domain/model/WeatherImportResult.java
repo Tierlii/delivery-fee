@@ -1,4 +1,4 @@
-package com.fujitsu.deliveryfee.domain.dto;
+package com.fujitsu.deliveryfee.domain.model;
 
 public class WeatherImportResult {
 

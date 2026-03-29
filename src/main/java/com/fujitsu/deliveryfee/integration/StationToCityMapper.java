@@ -21,6 +21,20 @@ public class StationToCityMapper {
             return Optional.empty();
         }
 
-        return Optional.ofNullable(STATION_TO_CITY_MAP.get(stationName));
+        String normalized = stationName.trim().toLowerCase();
+
+        if (normalized.contains("tallinn-harku")) {
+            return Optional.of(City.TALLINN);
+        }
+
+        if (normalized.contains("tartu")) {
+            return Optional.of(City.TARTU);
+        }
+
+        if (normalized.contains("parnu")) {
+            return Optional.of(City.PARNU);
+        }
+
+        return Optional.empty();
     }
 }
