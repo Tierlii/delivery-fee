@@ -37,9 +37,16 @@ public class WeatherImportService {
         List<ParsedWeatherObservation> parsedObservations = weatherXmlParser.parse(xml);
 
         for (ParsedWeatherObservation parsed : parsedObservations) {
+            System.out.println("STATION FROM XML: [" + parsed.getStationName() + "]");
+
             var cityOptional = stationToCityMapper.mapToCity(parsed.getStationName());
 
             if (cityOptional.isEmpty()) {
+                continue;
+            }
+
+            if (parsed.getAirTemperature() == null || parsed.getWindSpeed() == null) {
+                System.out.println("SKIPPED STATION DUE TO MISSING WEATHER DATA: [" + parsed.getStationName() + "]");
                 continue;
             }
 
