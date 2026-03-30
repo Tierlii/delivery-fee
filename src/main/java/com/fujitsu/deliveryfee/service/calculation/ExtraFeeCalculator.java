@@ -1,28 +1,31 @@
 package com.fujitsu.deliveryfee.service.calculation;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
-import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
 
-import lombok.RequiredArgsConstructor;
-
 @Component
-@RequiredArgsConstructor
 public class ExtraFeeCalculator {
 
-    private final List<ExtraFeeRule> extraFeeRules;
+    private final AirTemperatureRule airTemperatureRule;
+    private final WindSpeedRule windSpeedRule;
+    private final WeatherPhenomenonRule weatherPhenomenonRule;
 
-    public double calculateExtraFee(VehicleType vehicleType, WeatherObservation weatherObservation) {
+    public ExtraFeeCalculator(AirTemperatureRule airTemperatureRule,
+                              WindSpeedRule windSpeedRule,
+                              WeatherPhenomenonRule weatherPhenomenonRule) {
+        this.airTemperatureRule = airTemperatureRule;
+        this.windSpeedRule = windSpeedRule;
+        this.weatherPhenomenonRule = weatherPhenomenonRule;
+    }
 
-        return extraFeeRules.stream()
-                .mapToDouble(rule -> {
-                    double fee = rule.calculateExtraFee(vehicleType, weatherObservation);
-                    System.out.println(rule.getClass().getSimpleName() + " -> " + fee);
-                    return fee;
-                })
-                .sum();
+    public double calculate(double airTemperature,
+                            double windSpeed,
+                            String weatherPhenomenon,
+                            VehicleType vehicleType) {
+
+        return airTemperatureRule.calculate(airTemperature, windSpeed, weatherPhenomenon, vehicleType)
+                + windSpeedRule.calculate(airTemperature, windSpeed, weatherPhenomenon, vehicleType)
+                + weatherPhenomenonRule.calculate(airTemperature, windSpeed, weatherPhenomenon, vehicleType);
     }
 }

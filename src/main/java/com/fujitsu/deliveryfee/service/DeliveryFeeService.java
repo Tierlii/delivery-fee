@@ -6,8 +6,7 @@ import com.fujitsu.deliveryfee.domain.dto.DeliveryFeeResponse;
 import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.City;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
-import com.fujitsu.deliveryfee.service.calculation.BaseFeeCalculator;
-import com.fujitsu.deliveryfee.service.calculation.ExtraFeeCalculator;
+import com.fujitsu.deliveryfee.service.calculation.FeeCalculator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,15 +15,18 @@ import lombok.RequiredArgsConstructor;
 public class DeliveryFeeService {
 
     private final WeatherDataService weatherDataService;
-    private final BaseFeeCalculator baseFeeCalculator;
-    private final ExtraFeeCalculator extraFeeCalculator;
+    private final FeeCalculator feeCalculator;
 
     public DeliveryFeeResponse calculateFee(City city, VehicleType vehicleType) {
         WeatherObservation weather = weatherDataService.getLatestWeatherForCity(city);
 
-        double baseFee = baseFeeCalculator.calculateBaseFee(city, vehicleType);
-        double extraFee = extraFeeCalculator.calculateExtraFee(vehicleType, weather);
-        double totalFee = baseFee + extraFee;
+        double totalFee = feeCalculator.calculate(
+                city,
+                vehicleType,
+                weather.getAirTemperature(),
+                weather.getWindSpeed(),
+                weather.getWeatherPhenomenon()
+        );
 
         return DeliveryFeeResponse.builder()
                 .city(city)
@@ -32,6 +34,4 @@ public class DeliveryFeeService {
                 .fee(totalFee)
                 .build();
     }
-
-    
 }

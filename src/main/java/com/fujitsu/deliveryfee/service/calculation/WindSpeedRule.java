@@ -2,7 +2,6 @@ package com.fujitsu.deliveryfee.service.calculation;
 
 import org.springframework.stereotype.Component;
 
-import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
 import com.fujitsu.deliveryfee.exception.ForbiddenVehicleUsageException;
 
@@ -10,13 +9,12 @@ import com.fujitsu.deliveryfee.exception.ForbiddenVehicleUsageException;
 public class WindSpeedRule implements ExtraFeeRule {
 
     @Override
-    public double calculateExtraFee(VehicleType vehicleType, WeatherObservation weatherObservation) {
-        if (vehicleType != VehicleType.BIKE) {
-            return 0.0;
-        }
+    public double calculate(double airTemperature,
+                            double windSpeed,
+                            String weatherPhenomenon,
+                            VehicleType vehicleType) {
 
-        Double windSpeed = weatherObservation.getWindSpeed();
-        if (windSpeed == null) {
+        if (vehicleType != VehicleType.BIKE) {
             return 0.0;
         }
 

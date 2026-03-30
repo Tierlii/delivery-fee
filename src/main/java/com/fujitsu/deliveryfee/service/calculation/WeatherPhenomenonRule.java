@@ -2,7 +2,6 @@ package com.fujitsu.deliveryfee.service.calculation;
 
 import org.springframework.stereotype.Component;
 
-import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
 import com.fujitsu.deliveryfee.exception.ForbiddenVehicleUsageException;
 
@@ -10,27 +9,32 @@ import com.fujitsu.deliveryfee.exception.ForbiddenVehicleUsageException;
 public class WeatherPhenomenonRule implements ExtraFeeRule {
 
     @Override
-    public double calculateExtraFee(VehicleType vehicleType, WeatherObservation weatherObservation) {
-        if (vehicleType != VehicleType.SCOOTER && vehicleType != VehicleType.BIKE) {
+    public double calculate(double airTemperature,
+                            double windSpeed,
+                            String weatherPhenomenon,
+                            VehicleType vehicleType) {
+
+        if (vehicleType == VehicleType.CAR) {
             return 0.0;
         }
 
-        String phenomenon = weatherObservation.getWeatherPhenomenon();
-        if (phenomenon == null || phenomenon.isBlank()) {
+        if (weatherPhenomenon == null || weatherPhenomenon.isBlank()) {
             return 0.0;
         }
 
-        String value = phenomenon.toLowerCase();
+        String phenomenon = weatherPhenomenon.toLowerCase();
 
-        if (value.contains("glaze") || value.contains("hail") || value.contains("thunder")) {
+        if (phenomenon.contains("glaze")
+                || phenomenon.contains("hail")
+                || phenomenon.contains("thunder")) {
             throw new ForbiddenVehicleUsageException("Usage of selected vehicle type is forbidden");
         }
 
-        if (value.contains("snow") || value.contains("sleet")) {
+        if (phenomenon.contains("snow") || phenomenon.contains("sleet")) {
             return 1.0;
         }
 
-        if (value.contains("rain")) {
+        if (phenomenon.contains("rain")) {
             return 0.5;
         }
 
