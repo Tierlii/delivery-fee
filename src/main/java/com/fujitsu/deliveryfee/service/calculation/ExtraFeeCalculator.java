@@ -16,8 +16,13 @@ public class ExtraFeeCalculator {
     private final List<ExtraFeeRule> extraFeeRules;
 
     public double calculateExtraFee(VehicleType vehicleType, WeatherObservation weatherObservation) {
+
         return extraFeeRules.stream()
-                .mapToDouble(rule -> rule.calculateExtraFee(vehicleType, weatherObservation))
+                .mapToDouble(rule -> {
+                    double fee = rule.calculateExtraFee(vehicleType, weatherObservation);
+                    System.out.println(rule.getClass().getSimpleName() + " -> " + fee);
+                    return fee;
+                })
                 .sum();
     }
 }
