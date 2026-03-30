@@ -1,12 +1,12 @@
 package com.fujitsu.deliveryfee.integration;
 
-import com.fujitsu.deliveryfee.domain.model.ParsedWeatherObservation;
-import com.fujitsu.deliveryfee.service.integration.WeatherXmlParser;
-import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
+
+import com.fujitsu.deliveryfee.domain.model.ParsedWeatherObservation;
 
 class WeatherXmlParserTest {
 
