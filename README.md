@@ -16,21 +16,6 @@ The application:
 
 ---
 
-## Architecture
-
-com.fujitsu.deliveryfee
-├── controller # REST endpoints
-├── service # Business logic
-├── repository # Data access (JPA)
-├── domain # Entities, DTOs, enums
-├── integration # External API handling (XML parsing)
-├── calculation # Fee calculation logic (strategy/rules)
-├── scheduler # Cron job for weather import
-├── exception # Custom exceptions & global handler
-├── config # Configuration (Swagger, Scheduling)
-
----
-
 ## Technologies
 
 - Java 21
