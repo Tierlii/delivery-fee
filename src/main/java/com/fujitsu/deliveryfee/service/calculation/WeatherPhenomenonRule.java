@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
+import com.fujitsu.deliveryfee.exception.ForbiddenVehicleUsageException;
 
 @Component
 public class WeatherPhenomenonRule implements ExtraFeeRule {
@@ -22,7 +23,7 @@ public class WeatherPhenomenonRule implements ExtraFeeRule {
         String value = phenomenon.toLowerCase();
 
         if (value.contains("glaze") || value.contains("hail") || value.contains("thunder")) {
-            throw new RuntimeException("Usage of selected vehicle type is forbidden");
+            throw new ForbiddenVehicleUsageException("Usage of selected vehicle type is forbidden");
         }
 
         if (value.contains("snow") || value.contains("sleet")) {

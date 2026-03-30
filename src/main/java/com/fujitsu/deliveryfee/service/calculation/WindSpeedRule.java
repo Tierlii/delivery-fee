@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
+import com.fujitsu.deliveryfee.exception.ForbiddenVehicleUsageException;
 
 @Component
 public class WindSpeedRule implements ExtraFeeRule {
@@ -20,7 +21,7 @@ public class WindSpeedRule implements ExtraFeeRule {
         }
 
         if (windSpeed > 20) {
-            throw new RuntimeException("Usage of selected vehicle type is forbidden");
+            throw new ForbiddenVehicleUsageException("Usage of selected vehicle type is forbidden");
         }
 
         if (windSpeed >= 10 && windSpeed <= 20) {

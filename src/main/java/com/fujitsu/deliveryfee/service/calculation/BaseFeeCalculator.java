@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.fujitsu.deliveryfee.domain.enums.City;
 import com.fujitsu.deliveryfee.domain.enums.VehicleType;
+import com.fujitsu.deliveryfee.exception.InvalidParameterException;
 
 @Component
 public class BaseFeeCalculator {
@@ -22,7 +23,7 @@ public class BaseFeeCalculator {
                 return calculateParnuFee(vehicleType);
 
             default:
-                throw new RuntimeException("Unsupported city: " + city);
+                throw new InvalidParameterException("Unsupported city: " + city);   
         }
     }
 
@@ -35,7 +36,7 @@ public class BaseFeeCalculator {
             case BIKE:
                 return 3.0;
             default:
-                throw new RuntimeException("Unsupported vehicle type: " + vehicleType);
+                throw new InvalidParameterException("Unsupported vehicle type: " + vehicleType);
         }
     }
 
@@ -48,7 +49,7 @@ public class BaseFeeCalculator {
             case BIKE:
                 return 2.5;
             default:
-                throw new RuntimeException("Unsupported vehicle type: " + vehicleType);
+                throw new InvalidParameterException("Unsupported vehicle type: " + vehicleType);
         }
     }
 
@@ -61,7 +62,7 @@ public class BaseFeeCalculator {
             case BIKE:
                 return 2.0;
             default:
-                throw new RuntimeException("Unsupported vehicle type: " + vehicleType);
+                throw new InvalidParameterException("Unsupported vehicle type: " + vehicleType);
         }
     }
 }

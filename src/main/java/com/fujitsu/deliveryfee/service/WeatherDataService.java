@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.fujitsu.deliveryfee.domain.entity.WeatherObservation;
 import com.fujitsu.deliveryfee.domain.enums.City;
+import com.fujitsu.deliveryfee.exception.WeatherDataNotFoundException;
 import com.fujitsu.deliveryfee.repository.WeatherObservationRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class WeatherDataService {
         return weatherObservationRepository
                 .findTopByCityOrderByObservationTimeDesc(city)
                 .orElseThrow(() ->
-                    new IllegalStateException("No weather data found for city: " + city)
+                    new WeatherDataNotFoundException("No weather data found for city: " + city)
     );
     }
 }
